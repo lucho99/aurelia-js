@@ -1,0 +1,24 @@
+<template>
+	<section class="wrapper">
+		<header class="todo-input">
+			<form submit.delegate="addTodo()">
+				<input type="text" placeholder="${placeholderText}" value.bind="newTodo"/>
+			</form>
+		</header>
+		<section class="todo-list">
+			<ul>
+				<li repeat.for="todo of todos" class="${todo.done ? 'done' : ''}">
+					<div if.bind="!todo.edit" click.delegate="$parent.toggleEdit($index)">${todo.name}</div>
+					<input if.bind="todo.edit" type="text" value.bind="todo.name" blur.delegate="$parent.toggleEdit($index)" />
+					<button class="toggle" click.delegate="$parent.toggle($index)"></button>
+					<button class="delete" click.delegate="$parent.removeTodo($index)"></button>
+				</li>
+			</ul>
+		</section>
+		<footer if.bind="hasPendingItems">
+			<div class="pending-items">
+				${itemsLeft}
+			</div>
+		</footer>
+	</section>
+</template>
